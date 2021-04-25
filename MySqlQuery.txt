@@ -1,0 +1,92 @@
+  //UC1 create AdressBook DB
+CREATE DATABASE AddressBookService;
+
+
+// UC2 Ability to create a Address Book Table with First and lastnames,address,city,state,zip,PhoneNumber & Email as its attributes
+
+CREATE TABLE AddressBook(FirstName varchar(45),LastName varchar(25),
+Address varchar(65),City varchar(20),State varchar(20),Zip char(6),
+PhoneNumber varchar(20),Email varchar(60));
+
+// UC3 Ability to insert new Contacts to AddressBook
+
+INSERT INTO AddressBook VALUES ('Chandan','Singh','Milling Tonia',
+'Lucknow','UttarPradesh','226001','8887719063','chandansingh.1sep@gmail.com');
+
+INSERT INTO AddressBook VALUES ('Rohan','Kumar','Nizampet',
+'Secundrabad','Telangana','500090','8547125962','kumar555gmail.com');
+
+INSERT INTO AddressBook VALUES ('pasupulati','Sravani','Ashoknagar',
+'vijayawada','Andhrapradesh','500264','8541257685','sravani5@gmail.com');
+
+
+INSERT INTO AddressBook VALUES ('Ashok','Vaidhya','Tejbahadur colony',
+'Tadepalligudem','Andhrapradesh','560488','9864521284','vaidya145@gmail.com');
+
+INSERT INTO AddressBook VALUES ('Adabala','Surya','mallkipuram',
+'Narasapuram','Andhrapradesh', '524101','7895236934','Suryaadabala@gmail.com');
+
+// UC4 Ability to edit contact person using their name 
+
+update AddressBook set phoneNumber='7622461256' where LastName='Sravani';
+
+
+// UC5 delete a person by their name
+
+delete from AddressBook where FirstName='pasupulati';
+
+UC_6 person belong city or state
+SELECT * FROM address_book where City = 'Lucknow' AND State = 'UttarPradesh';
+
+select * from AddressBook;
+
+// UC7 size of city and state
+
+SELECT COUNT(city) FROM address_book;
+SELECT COUNT(state) FROM address_book;
+
+// UC_8
+
+SELECT firstName FROM AddressBook order by city ASC;
+SELECT * from AddressBook ORDER BY city ASC;
+
+// UC_9
+
+alter table AddressBook add Name varchar(30);
+alter table AddressBook add Type varchar(25);
+select * from AddressBook;
+alter table AddressBook drop Name;
+
+// UC_10
+SELECT type, COUNT(*) FROM address_book GROUP BY type
+
+// UC_11
+update AddressBook set type='Family' where LastName='Singh';
+select * from AddressBook;
+update AddressBook set type='Friend' where LastName='Kumar';
+
+select type, count(*) from AddressBook group by type;
+update AddressBook set type=('Family,Friend') where LastName='Kumar';
+select * from AddressBook;
+
+// UC_12
+
+CREATE TABLE address_book
+     (
+     FirstName VARCHAR(45) NOT NULL,
+     LastName VARCHAR(45) NOT NULL,
+     Address VARCHAR(150) NOT NULL,
+     City VARCHAR(45) NOT NULL,
+     State VARCHAR(45) NOT NULL,
+     zip INT(6) unsigned NOT NULL,
+     PhoneNumber INT(10) unsigned NOT NULL,
+     Email VARCHAR(150) NOT NULL
+     );
+
+  CREATE TABLE type (
+    typeID INT unsigned NOT NULL AUTO_INCREMENT,
+    type VARCHAR(150) NOT NULL,
+    contId INT NOT NULL,
+     PRIMARY KEY (typeID),
+     FOREIGN KEY (contId) REFERENCES AddressBook()
+     );
